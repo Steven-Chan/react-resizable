@@ -210,6 +210,12 @@ export default class Resizable extends React.Component {
       `${p.className} react-resizable`:
       'react-resizable';
 
+    const sizeStyle = {};
+    if (handleSize) {
+      sizeStyle.width = handleSize[0];
+      sizeStyle.height = handleSize[1];
+    }
+
     // What we're doing here is getting the child of this element, and cloning it with this element's props.
     // We are then defining its children as:
     // Its original children (resizable's child's children), and
@@ -226,7 +232,7 @@ export default class Resizable extends React.Component {
           onStart={this.resizeHandler('onResizeStart')}
           onDrag={this.resizeHandler('onResize')}
           >
-          <span className="react-resizable-handle" />
+          <span style={sizeStyle} className="react-resizable-handle" />
         </DraggableCore>
       ]
     });
