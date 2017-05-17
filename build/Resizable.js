@@ -218,7 +218,8 @@ var Resizable = function (_React$Component) {
         onResize = _props.onResize,
         onResizeStop = _props.onResizeStop,
         onResizeStart = _props.onResizeStart,
-        p = _objectWithoutProperties(_props, ['children', 'draggableOpts', 'width', 'height', 'handleSize', 'lockAspectRatio', 'axis', 'minConstraints', 'maxConstraints', 'onResize', 'onResizeStop', 'onResizeStart']);
+        disabled = _props.disabled,
+        p = _objectWithoutProperties(_props, ['children', 'draggableOpts', 'width', 'height', 'handleSize', 'lockAspectRatio', 'axis', 'minConstraints', 'maxConstraints', 'onResize', 'onResizeStop', 'onResizeStart', 'disabled']);
 
     var className = p.className ? p.className + ' react-resizable' : 'react-resizable';
 
@@ -226,6 +227,10 @@ var Resizable = function (_React$Component) {
     if (handleSize) {
       sizeStyle.width = handleSize[0];
       sizeStyle.height = handleSize[1];
+    }
+
+    if (disabled) {
+      draggableOpts.disabled = disabled;
     }
 
     // What we're doing here is getting the child of this element, and cloning it with this element's props.
@@ -242,7 +247,7 @@ var Resizable = function (_React$Component) {
           onStart: this.resizeHandler('onResizeStart'),
           onDrag: this.resizeHandler('onResize')
         }),
-        _react2.default.createElement('span', { style: sizeStyle, className: 'react-resizable-handle' })
+        disabled ? _react2.default.createElement('span', null) : _react2.default.createElement('span', { style: sizeStyle, className: 'react-resizable-handle' })
       )]
     }));
   };

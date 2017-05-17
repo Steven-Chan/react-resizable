@@ -204,7 +204,7 @@ export default class Resizable extends React.Component {
     // eslint-disable-next-line no-unused-vars
     const {children, draggableOpts, width, height, handleSize,
         lockAspectRatio, axis, minConstraints, maxConstraints, onResize,
-        onResizeStop, onResizeStart, ...p} = this.props;
+        onResizeStop, onResizeStart, disabled, ...p} = this.props;
 
     const className = p.className ?
       `${p.className} react-resizable`:
@@ -214,6 +214,10 @@ export default class Resizable extends React.Component {
     if (handleSize) {
       sizeStyle.width = handleSize[0];
       sizeStyle.height = handleSize[1];
+    }
+
+    if (disabled) {
+      draggableOpts.disabled = disabled;
     }
 
     // What we're doing here is getting the child of this element, and cloning it with this element's props.
@@ -232,7 +236,11 @@ export default class Resizable extends React.Component {
           onStart={this.resizeHandler('onResizeStart')}
           onDrag={this.resizeHandler('onResize')}
           >
-          <span style={sizeStyle} className="react-resizable-handle" />
+          {
+            disabled ?
+              <span /> :
+              <span style={sizeStyle} className="react-resizable-handle" />
+          }
         </DraggableCore>
       ]
     });
